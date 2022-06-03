@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: orchestrator-command    
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: NON_NULL    
+    
+server:
+  port: 8087 
+  
+springdoc:
+  api-docs:
+    path: /v1/api-docs    
+  swagger-ui:
+    path: /v1/swagger-ui
+    operationsSorter: method   
+    
+kafka:
+  config:  
+    producer:
+      "[bootstrap.servers]": localhost:9092
+      "[spring.json.add.type.headers]": false
+      "[key.serializer]": org.apache.kafka.common.serialization.StringSerializer
+      "[value.serializer]": org.springframework.kafka.support.serializer.JsonSerializer        
+      "[connections.max.idle.ms]": 60000
+      "[metadata.max.age.ms]": 120000
+      "[metadata.max.idle.ms]": 120000                                                          
+      "[sasl.mechanism]": PLAIN
+    topic: 
+      producer: orchestrator-events
