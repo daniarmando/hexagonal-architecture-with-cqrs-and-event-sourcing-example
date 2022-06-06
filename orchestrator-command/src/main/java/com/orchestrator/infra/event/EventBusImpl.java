@@ -43,10 +43,8 @@ public class EventBusImpl implements EventBus {
 		
 		log.info("Handling {} {}", eventName, event);
 		
-		var handler = handlers.get(event.getClass());					
-		
 		try {
-			publishEvent(event, handler);
+			publishEvent(event);
 			log.info("Handling of the event {} done", event.getClass().getSimpleName());
 		} catch (Exception ex) {			
 			publishError(event.getClass(), event.getKey(), event.getData(), ex);
@@ -85,26 +83,25 @@ public class EventBusImpl implements EventBus {
 		}
 	}
 	
-	private void publishEvent(Event event, EventHandler eventHandler) {			
+	private void publishEvent(Event event) {			
 				
 		var eventName = event.getClass().getSimpleName();
-		var eventStreaming = new EventStreaming(event.getKey(), eventName, event.getData());		
+		var eventStreaming = new EventStreaming(event.getKey(), eventName, event.getData());
+		var handler = handlers.get(event.getClass());
 		
 		eventStream.send(eventStreaming)
 			.addCallback(new ListenableFutureCallback<SendResult<String, EventStreaming>>() {
 
 				@Override
 				public void onSuccess(SendResult<String, EventStreaming> result) {		
-					if (Objects.isNull(eventHandler)) {
-						log.warn("No handlers to fire after {} has been published to event store or handler not annotated as a spring bean", event.getClass().getSimpleName());						
-					} else {
-						eventHandler.handle(event);
+					if (Objects.nonNull(handler)) {
+						handler.handle(event);						
 					}
 				}
 	
 				@Override
 				public void onFailure(Throwable ex) {	
-					log.error("Error handling event in event store", ex);									
+					log.error("Error handling event in event stream", ex);									
 				}
 				
 			});	

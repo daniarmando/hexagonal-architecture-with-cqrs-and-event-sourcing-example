@@ -1,5 +1,7 @@
 package com.orchestrator.core.command;
 
+import java.math.BigDecimal;
+
 import com.orchestrator.infra.command.Command;
 
 import lombok.AllArgsConstructor;
@@ -9,10 +11,11 @@ import lombok.ToString;
 @Getter
 @ToString
 @AllArgsConstructor
-public class CreateBookingChipCommand extends Command {
+public class CreateBookingCommand extends Command {
 	
-	private String name;
-	private String lastName;
-	private Integer age;
+	private String product; 
+	private BigDecimal value;
+	private String salesman;
+	private String customer;
 
 }

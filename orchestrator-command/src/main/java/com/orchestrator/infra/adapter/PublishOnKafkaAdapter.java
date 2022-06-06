@@ -19,7 +19,7 @@ public class PublishOnKafkaAdapter implements PublishToEventStreamOutputPort {
 	
 	private final KafkaTemplate<String, EventStreaming> kafkaTemplate;
 	
-	@Value("${kafka.topic.producer}")
+	@Value("${kafka.config.topic.producer}")
 	private String topic;
 	
 	@Override

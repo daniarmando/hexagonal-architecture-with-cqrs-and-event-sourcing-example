@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.orchestrator.core.model.dto.CreateBookingChipDTO;
-import com.orchestrator.core.port.input.CreateChipBookingInputPort;
+import com.orchestrator.core.model.dto.CreateBookingDTO;
+import com.orchestrator.core.port.input.CreateBookingInputPort;
 import com.orchestrator.presentation.util.HttpStatusMessageUtils;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,14 +20,14 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(CreateChipBookingController.URL)
-public class CreateChipBookingController {
+@RequestMapping(CreateBookingController.URL)
+public class CreateBookingController {
 	
-public static final String URL = "/v1/chip/booking";
+public static final String URL = "/v1/booking";
 	
-	private final CreateChipBookingInputPort inputPort;
+	private final CreateBookingInputPort inputPort;
 		
-	@Operation(summary = "Command to make a chip booking")	
+	@Operation(summary = "Command to make a booking")	
 	@ApiResponses(value = { @ApiResponse(responseCode = "202", description = HttpStatusMessageUtils.ACCEPTED),
 			@ApiResponse(responseCode = "400", description = HttpStatusMessageUtils.BAD_REQUEST),
 			@ApiResponse(responseCode = "401", description = HttpStatusMessageUtils.UNAUTHORIZED),
@@ -35,8 +35,8 @@ public static final String URL = "/v1/chip/booking";
             @ApiResponse(responseCode = "404", description = HttpStatusMessageUtils.NOT_FOUND) })
 	@PostMapping
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public void booking(@RequestBody @Valid CreateBookingChipDTO createBookingChipDTO) {		
-		inputPort.execute(createBookingChipDTO);				
+	public void execute(@RequestBody @Valid CreateBookingDTO createBookingChipDTO) {		
+		inputPort.execute(createBookingChipDTO);		
 	}
 
 }

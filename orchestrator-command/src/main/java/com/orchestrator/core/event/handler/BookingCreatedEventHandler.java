@@ -2,18 +2,18 @@ package com.orchestrator.core.event.handler;
 
 import org.springframework.web.reactive.function.client.WebClientException;
 
-import com.orchestrator.core.event.BookingChipCreatedEvent;
+import com.orchestrator.core.event.BookingCreatedEvent;
 import com.orchestrator.infra.annotation.Handler;
 import com.orchestrator.infra.event.EventHandler;
 
 @Handler
-public class BookingChipCreatedEventHandler implements EventHandler<BookingChipCreatedEvent> {
+public class BookingCreatedEventHandler implements EventHandler<BookingCreatedEvent> {
 	
 	//@Autowired
 	//private CreateChipBookingOutputPort outputPort;
 
 	@Override
-	public void handle(BookingChipCreatedEvent event) {
+	public void handle(BookingCreatedEvent event) {
 		// TODO: testar subscribe()
 		//outputPort.execute(event.getData()).block();
 		

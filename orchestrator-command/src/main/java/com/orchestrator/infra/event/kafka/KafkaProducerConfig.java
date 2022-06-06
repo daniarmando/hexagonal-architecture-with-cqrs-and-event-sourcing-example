@@ -16,8 +16,8 @@ import com.orchestrator.infra.event.EventStreaming;
 import lombok.Getter;
 
 @Configuration
-@EnableConfigurationProperties(ProducerKafkaConfig.KafkaProperties.class)
-public class ProducerKafkaConfig {
+@EnableConfigurationProperties(KafkaProducerConfig.KafkaProperties.class)
+public class KafkaProducerConfig {
 
 	@Getter	
 	@ConfigurationProperties("kafka.config")	
