@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: orchestrator-query    
+  data:
+    mongodb:
+      uri: mongodb://localhost/orchestrator_event_store
+      auto-index-creation: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: NON_NULL    
+    
+server:
+  port: 8089
+  
+springdoc:
+  api-docs:
+    path: /v1/api-docs    
+  swagger-ui:
+    path: /v1/swagger-ui
+    operationsSorter: method   

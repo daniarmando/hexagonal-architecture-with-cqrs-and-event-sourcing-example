@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: orchestrator-event-handler   
+  data:
+    mongodb:
+      uri: mongodb://localhost/orchestrator_event_store
+      auto-index-creation: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: NON_NULL    
+    
+server:
+  port: 8088
+    
+kafka:
+  config:  
+    consumer:
+      "[bootstrap.servers]": localhost:9092
+      "[enable.auto.commit]": true
+      "[spring.json.value.default.type]": com.orchestrator.core.model.Event
+      "[key.deserializer]": org.apache.kafka.common.serialization.StringDeserializer
+      "[value.deserializer]": org.springframework.kafka.support.serializer.JsonDeserializer
+      "[connections.max.idle.ms]": 60000
+      "[metadata.max.age.ms]": 120000      
+      "[sasl.mechanism]": PLAIN
+    topic:
+      consumer: orchestrator-events
+      group: orchestrator-event-handler
